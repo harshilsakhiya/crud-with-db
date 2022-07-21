@@ -52,7 +52,7 @@ export default function Home() {
   const [student, setStudent] = useState({
     stuname: "",
     email: "",
-    phone:"",
+    phone: "",
   });
 
   const [status, setStatus] = useState(false);
@@ -81,12 +81,12 @@ export default function Home() {
   return (
     <div>
       <Box textAlign="center" className={classes.headingColor} p={2} mb={2}>
-        <Typography variant="h2">React CRUD with API call</Typography>
+        <Typography variant="h2">SAKHIYA FAMILY</Typography>
       </Box>
       <Grid container justify="center" spacing={4}>
         <Grid item md={6} xs={12}>
           <Box textAlign="center" p={2} className={classes.addStuColor} mb={2}>
-            <Typography variant="h4">Add Student</Typography>
+            <Typography variant="h4">ADD MEMBER</Typography>
           </Box>
 
           <form noValidate>

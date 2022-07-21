@@ -59,7 +59,7 @@ export default function View() {
   return (
     <div>
       <Box textAlign="center" p={2} className={classes.stuListColor}>
-        <Typography variant="h4">Student List</Typography>
+        <Typography variant="h4"> MEMBER LIST</Typography>
       </Box>
       <TableContainer component={Paper}>
         <Table>
