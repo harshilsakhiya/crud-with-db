@@ -43,32 +43,35 @@ export default function List() {
   const [students, setStudents] = useState([]);
 
   useEffect(() => {
-    async function getAllStudent() {
-      try {
-        const students = await axios.get("http://localhost:3003/students");
-        console.log("first", students);
-        setStudents(students.data);
-      } catch (error) {
-        console.log("Something is Wrong");
-      }
-    }
-
     getAllStudent();
   }, []);
 
+  async function getAllStudent() {
+    try {
+      const students = await axios.get("http://localhost:8000/faimely");
+      console.log("first", students);
+      setStudents(students.data);
+    } catch (error) {
+      console.log("Something is Wrong");
+    }
+  }
+
   const handleDelete = async (id) => {
-    await axios.delete(`http://localhost:3003/students/${id}`);
-    var newstudata = students.filter((item) => {
-      console.log("shhdc", item);
-      return item.id !== id;
-    });
-    setStudents(newstudata);
+    await axios.delete(`http://localhost:8000/faimely/${id}`);
+    getAllStudent();
   };
 
   return (
     <div>
       <Box textAlign="center" p={2} className={classes.stuListColor}>
         <Typography variant="h4"> MEMBER LIST</Typography>
+      </Box>
+      <Box textAlign="left" p={2} mb={2}>
+        <Link to="/add">
+          <Button variant="contained" color="primary">
+            Add
+          </Button>
+        </Link>
       </Box>
       <TableContainer component={Paper}>
         <Table>
@@ -96,14 +99,14 @@ export default function List() {
               return (
                 <TableRow key={i}>
                   <TableCell align="center">{i + 1}</TableCell>
-                  <TableCell align="center">{student.stuname}</TableCell>
+                  <TableCell align="center">{student.name}</TableCell>
                   <TableCell align="center">{student.phone}</TableCell>
 
                   <TableCell align="center">{student.email}</TableCell>
                   <TableCell align="center">
                     <Tooltip title="View">
                       <IconButton>
-                        <Link to={`/view/${student.id}`}>
+                        <Link to={`/view/${student._id}`}>
                           <VisibilityIcon color="primary" />
                         </Link>
                       </IconButton>
@@ -111,14 +114,14 @@ export default function List() {
 
                     <Tooltip title="Edit">
                       <IconButton>
-                        <Link to={`/edit/${student.id}`}>
+                        <Link to={`/edit/${student._id}`}>
                           <EditIcon />
                         </Link>
                       </IconButton>
                     </Tooltip>
 
                     <Tooltip title="Delete">
-                      <IconButton onClick={() => handleDelete(student.id)}>
+                      <IconButton onClick={() => handleDelete(student._id)}>
                         <DeleteIcon color="secondary" />
                       </IconButton>
                     </Tooltip>

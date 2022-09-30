@@ -41,7 +41,7 @@ export default function View() {
   useEffect(() => {
     async function getStudent() {
       try {
-        const student = await axios.get(`http://localhost:3003/students/${id}`);
+        const student = await axios.get(`http://localhost:8000/faimely/${id}`);
         // console.log("firstggg",student);
         setStudent(student.data);
       } catch (error) {
@@ -77,15 +77,13 @@ export default function View() {
               <TableCell align="center" className={classes.tableHeadCell}>
                 Email
               </TableCell>
-              <TableCell align="center" className={classes.tableHeadCell}>
-                Action
-              </TableCell>
+              
             </TableRow>
           </TableHead>
           <TableBody>
             <TableRow>
-              <TableCell align="center">{student.id}</TableCell>
-              <TableCell align="center">{student.stuname}</TableCell>
+              <TableCell align="center">{student._id}</TableCell>
+              <TableCell align="center">{student.name}</TableCell>
               <TableCell align="center">{student.phone}</TableCell>
 
               <TableCell align="center">{student.email}</TableCell>

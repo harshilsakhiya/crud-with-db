@@ -51,7 +51,7 @@ export default function Edit() {
   useEffect(() => {
     async function getStudent() {
       try {
-        const student = await axios.get(`http://localhost:3003/students/${id}`);
+        const student = await axios.get(`http://localhost:8000/faimely/${id}`);
         // console.log("firstggg",student);
         setStudent(student.data);
       } catch (error) {
@@ -72,7 +72,7 @@ export default function Edit() {
   const onFormSubmit = async (e) => {
     e.preventDefault();
     try {
-      await axios.put(`http://localhost:3003/students/${id}`, student);
+      await axios.put(`http://localhost:8000/faimely/${id}`, student);
       navigate("/");
     } catch (error) {
       console.log("Something is wrong");
@@ -106,7 +106,7 @@ export default function Edit() {
                   id="id"
                   //   label="id"
                   autoFocus
-                  value={student.id}
+                  value={student._id}
                   disabled
                 />
               </Grid>
@@ -120,7 +120,7 @@ export default function Edit() {
                   fullWidth
                   id="stuname"
                   label="Name"
-                  value={student.stuname}
+                  value={student.name}
                   onChange={(e) => handleChange(e)}
                 />
               </Grid>
@@ -134,7 +134,7 @@ export default function Edit() {
                   id="phone"
                   label="Phone No Address"
                   onChange={(e) => handleChange(e)}
-                  value={student.email}
+                  value={student.phone}
                 />
               </Grid>
               <Grid item xs={12}>
@@ -147,7 +147,7 @@ export default function Edit() {
                   id="email"
                   label="Email Address"
                   onChange={(e) => handleChange(e)}
-                  value={student.phone}
+                  value={student.email}
                 />
               </Grid>
             </Grid>

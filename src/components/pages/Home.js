@@ -1,28 +1,7 @@
-import {
-  Typography,
-  Box,
-  makeStyles,
-  Grid,
-  TableContainer,
-  Table,
-  TableBody,
-  TableCell,
-  TableHead,
-  Paper,
-  IconButton,
-  Tooltip,
-  TestField,
-  Button,
-  TableRow,
-} from "@material-ui/core";
+import { Typography, Box, makeStyles, Grid, Button } from "@material-ui/core";
 import { deepPurple, green, orange } from "@material-ui/core/colors";
-import VisibilityIcon from "@material-ui/icons/Visibility";
-import EditIcon from "@material-ui/icons/Edit";
-import DeleteIcon from "@material-ui/icons/Delete";
 import { TextField } from "@mui/material";
-import { ThemeProvider } from "@mui/material/styles";
-import { Link } from "react-router-dom";
-import List from "../student/List";
+import { Link, useNavigate } from "react-router-dom";
 import { useState } from "react";
 import axios from "axios";
 
@@ -53,9 +32,12 @@ export default function Home() {
     stuname: "",
     email: "",
     phone: "",
+    address: "",
   });
 
   const [status, setStatus] = useState(false);
+
+  const navigate = useNavigate();
 
   const onTextFieldChange = (e) => {
     setStudent({
@@ -67,8 +49,9 @@ export default function Home() {
   const onFormSubmit = async (e) => {
     e.preventDefault();
     try {
-      await axios.post(`http://localhost:3003/students`, student);
+      await axios.post(`http://localhost:8000/faimely`, student);
       setStatus(true);
+      navigate("/");
     } catch (error) {
       console.log("Something is wrong");
     }
@@ -83,8 +66,15 @@ export default function Home() {
       <Box textAlign="center" className={classes.headingColor} p={2} mb={2}>
         <Typography variant="h2">SAKHIYA FAMILY</Typography>
       </Box>
+      <Box textAlign="left" p={2} mb={2}>
+        <Link to="/">
+          <Button variant="contained" color="primary">
+            Go To List
+          </Button>
+        </Link>
+      </Box>
       <Grid container justify="center" spacing={4}>
-        <Grid item md={6} xs={12}>
+        <Grid item md={11} xs={12}>
           <Box textAlign="center" p={2} className={classes.addStuColor} mb={2}>
             <Typography variant="h4">ADD MEMBER</Typography>
           </Box>
@@ -93,12 +83,12 @@ export default function Home() {
             <Grid container spacing={2}>
               <Grid item xs={12}>
                 <TextField
-                  autoComplete="stuname"
-                  name="stuname"
+                  autoComplete="name"
+                  name="name"
                   variant="outlined"
                   required
                   fullWidth
-                  id="stuname"
+                  id="name"
                   label="Name"
                   onChange={(e) => onTextFieldChange(e)}
                 />
@@ -128,6 +118,19 @@ export default function Home() {
                   onChange={(e) => onTextFieldChange(e)}
                 />
               </Grid>
+
+              <Grid item xs={12}>
+                <TextField
+                  autoComplete="address"
+                  name="address"
+                  variant="outlined"
+                  required
+                  fullWidth
+                  id="address"
+                  label="Address"
+                  onChange={(e) => onTextFieldChange(e)}
+                />
+              </Grid>
             </Grid>
 
             <Box m={3}>
@@ -142,10 +145,6 @@ export default function Home() {
               </Button>
             </Box>
           </form>
-        </Grid>
-
-        <Grid item md={6} xs={12}>
-          <List />
         </Grid>
       </Grid>
     </div>
